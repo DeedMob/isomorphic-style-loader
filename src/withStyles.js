@@ -18,7 +18,9 @@ function withStyles(...styles) {
   return function wrapWithStyles(ComposedComponent) {
     class WithStyles extends Component {
       componentWillMount() {
-        this.removeCss = this.context.insertCss.apply(undefined, styles);
+        if (this.context.insertCss) {
+          this.removeCss = this.context.insertCss.apply(undefined, styles);
+        }
       }
 
       componentWillUnmount() {
